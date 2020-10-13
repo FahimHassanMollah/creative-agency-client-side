@@ -1,47 +1,68 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
+import { UserContext } from '../../../App';
 import DashboardHeader from '../DashboardHeader/DashboardHeader';
 import Sidebar from '../Sidebar/Sidebar';
+import { useForm } from "react-hook-form";
 const DashboardOrder = () => {
+    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const { register, handleSubmit, watch, errors } = useForm();
+    const onSubmit = data => {
+        data.photo=loggedInUser.photo;
+        data.status='pending';
+        console.log(data);
+        fetch('http://localhost:8080/saveOrderInformations', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    };
     return (
-        <div style={{overflow:"hidden"}}>
+        <div style={{ overflow: "hidden" }}>
             <DashboardHeader></DashboardHeader>
-           
-                <Row className="" style={{paddingLeft:"25px"}}>
-                    <Col md={3} className="mt-4 p-0">
-                        <Sidebar></Sidebar>
-                    </Col>
-                    <Col md={9} style={{backgroundColor:"#f4f7fc",height:"100vh"}}>
-                        <div style={{ paddingRight: "200px",paddingTop:"60px",paddingLeft:"20px" }}>
-                            <form>
-                                <div className="mb-3">
-                                    <input type="email" name="email" className="form-control " placeholder="Your name / company's name" />
+            <Row className="" style={{ paddingLeft: "25px" }}>
+                <Col md={3} className="mt-4 p-0">
+                    <Sidebar></Sidebar>
+                </Col>
+                <Col md={9} style={{ backgroundColor: "#f4f7fc", height: "100vh" }}>
+                    <div style={{ paddingRight: "200px", paddingTop: "60px", paddingLeft: "20px" }}>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div className="mb-3">
+                                <input ref={register({ required: true })} type="text" name="name" value={loggedInUser.name} className="form-control " placeholder="Your name / company's name" />
+                            </div>
+                            <div className="mb-3">
+                                <input ref={register({ required: true })} type="email" name="adress" value={loggedInUser.email} className="form-control " placeholder="Your email adress" />
+                            </div>
+                            <div className="mb-3">
+                                <input ref={register({ required: true })} type="text" name="service" className="form-control " placeholder="Enter service name" />
+                            </div>
+                            <div className="mb-3">
+                                <textarea ref={register({ required: true })} className="form-control" name="description" placeholder="project details" rows="4"></textarea>
+                            </div>
+                            <div className="form-row">
+                                <div className="form-group col-md-3">
+                                    <input ref={register({ required: true })} type="number" name="price" className="form-control " placeholder="Enter price(Tk)" />
                                 </div>
-                                <div className="mb-3">
-                                    <input type="text" name="adress" className="form-control " placeholder="Your email adress" />
+                                <div className="form-group col-md-9">
                                 </div>
-                                <div className="mb-3">
-                                    <input type="text" name="service" className="form-control " placeholder="" />
-                                </div>
-                                <div className="mb-3">
-                                    <textarea class="form-control" name="description" placeholder="project details" rows="4"></textarea>
-                                </div>
-                                <div className="form-row">
-                                    <div class="form-group col-md-6">
-                                        <input type="number" name="price" className="form-control " placeholder="price" />
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <input type="file" class="form-control-file" />
-                                    </div>
-
-
-                                </div>
-                                <button type="submit" className="btn btn-primary">Sign in</button>
-                            </form>
-                        </div>
-                    </Col>
-                </Row>
-           
+                            </div>
+                            <button style={{ backgroundColor: "#111430" }} className="btn px-5 text-white py-2" type="submit">
+                                Send
+                                 </button>
+                        </form>
+                    </div>
+                </Col>
+            </Row>
         </div>
     );
 };

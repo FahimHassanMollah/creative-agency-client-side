@@ -8,7 +8,7 @@ import { faServicestack } from '@fortawesome/free-brands-svg-icons';
 const Sidebar = () => {
     return (
         <div className="">
-            <nav class="nav flex-column">
+            <nav className="nav flex-column">
                 <Link className="mb-3" to="/dashboardOrder" style={{ textDecoration: 'none', color: "black", fontSize: "16px" }}>
                     <FontAwesomeIcon icon={faShoppingCart} /> <span style={{ color: 'black' }} className="ml-2">Order</span>
                 </Link>
