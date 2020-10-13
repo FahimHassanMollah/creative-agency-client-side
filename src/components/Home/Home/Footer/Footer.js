@@ -33,8 +33,10 @@ const Footer = () => {
                         </div>
                     </Col>
                 </Row>
-                <Row>
-
+                <Row className="py-5 mt-5 ">
+                   <Col>
+                    <small className="text-center d-block ">copyright Orange labs {new Date().getFullYear()}</small>
+                   </Col>
                 </Row>
             </Container>
         </div>

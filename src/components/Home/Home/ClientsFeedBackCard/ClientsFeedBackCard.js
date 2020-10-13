@@ -6,7 +6,7 @@ const ClientsFeedBackCard = (props) => {
     return (
 
         <Col md={4} className="mb-5 text-muted">
-            <Link to={'/hi'} className="btn ">
+            <Link to={''} className="btn ">
             <div className="card">
                 <div className="card-body">
                     <div>

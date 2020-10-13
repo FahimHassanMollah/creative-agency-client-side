@@ -8,6 +8,8 @@ import {
   Link
 } from "react-router-dom";
 import Home from './components/Home/Home/Home/Home';
+import Login from './components/Home/Login/Login';
+import DashboardOrder from './components/Dashboard/DashboardOrder/DashboardOrder';
 function App() {
   return (
     <div className="">
@@ -15,6 +17,12 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Home></Home>
+          </Route>
+          <Route exact path="/login">
+            <Login></Login>
+          </Route>
+          <Route exact path="/dashboardOrder">
+            <DashboardOrder></DashboardOrder>
           </Route>
          
         </Switch>
