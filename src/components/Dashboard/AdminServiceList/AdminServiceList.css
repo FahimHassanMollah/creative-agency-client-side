@@ -1,0 +1,8 @@
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: none!important;
+    border-top: none!important;
+}
+.bg-tr{
+    background-color: #f5f6fa!important;
+}

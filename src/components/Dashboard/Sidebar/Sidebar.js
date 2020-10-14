@@ -9,14 +9,17 @@ const Sidebar = () => {
     return (
         <div className="">
             <nav className="nav flex-column">
-                <Link className="mb-3" to="/dashboardOrder" style={{ textDecoration: 'none', color: "black", fontSize: "16px" }}>
+                <Link className="mb-3" to="/" style={{ textDecoration: 'none', color: "black", fontSize: "16px" }}>
                     <FontAwesomeIcon icon={faShoppingCart} /> <span style={{ color: 'black' }} className="ml-2">Order</span>
                 </Link>
-                <Link className="mb-3" to="/dashboardServiceList" style={{ textDecoration: 'none', color: "black", fontSize: "16px" }}>
+                <Link className="mb-3" to="/dashboardUserServiceList" style={{ textDecoration: 'none', color: "black", fontSize: "16px" }}>
                     <FontAwesomeIcon icon={faListAlt} /> <span style={{ color: 'black' }} className="ml-2">Service List</span>
                 </Link>
-                <Link className="mb-3" to="/dashboardReview" style={{ textDecoration: 'none', color: "black", fontSize: "16px" }}>
+                <Link className="mb-3" to="/dashboardUserReview" style={{ textDecoration: 'none', color: "black", fontSize: "16px" }}>
                     <FontAwesomeIcon icon={faCommentDots} /> <span style={{ color: 'black' }} className="ml-2">Review</span>
+                </Link>
+                <Link className="mb-3" to="/dashboardAdminServiceList" style={{ textDecoration: 'none', color: "black", fontSize: "16px" }}>
+                    <FontAwesomeIcon icon={faListAlt} /> <span style={{ color: 'black' }} className="ml-2">Admin Service List</span>
                 </Link>
                 <Link className="mb-3" to="/dashboardAddService" style={{ textDecoration: 'none', color: "black", fontSize: "16px" }}>
                     <FontAwesomeIcon icon={faPlus} /> <span style={{ color: 'black' }} className="ml-2">Add service</span>

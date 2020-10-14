@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import clientOne from '../../../../images/customer-1.png';
 import clientTwo from '../../../../images/customer-2.png';
@@ -25,13 +25,19 @@ const clientsFeedbackArray =[
     },
 ]
 const ClientsFeedBack = () => {
+    const [reviews, setReviews] = useState([])
+    useEffect(() => {
+       fetch('http://localhost:8080/getAllReview')
+       .then(res=>res.json())
+       .then(result=>setReviews(result))
+    }, [])
     return (
         <div style={{marginTop:'70px',marginBottom:'100px'}}>
             <Container>
                 <h2 style={{color:"#171b4e",marginBottom:"80px"}} className="text-center">Clients <span style={{color:'#7ab259'}}>Feedback</span></h2>
                 <Row>
                    {
-                       clientsFeedbackArray.map((clientInfo,index)=><ClientsFeedBackCard clientInfo={clientInfo} key={index}></ClientsFeedBackCard>)
+                       reviews.map((clientInfo,index)=><ClientsFeedBackCard clientInfo={clientInfo} key={index}></ClientsFeedBackCard>)
                    }
                 </Row>
             </Container>

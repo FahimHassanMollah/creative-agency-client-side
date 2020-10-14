@@ -6,7 +6,7 @@ const ServiceCard = (props) => {
     return (
        
              <Col md={4} className="mb-5 text-muted">
-            <Link className="btn " to={'/dashboardOrder'}>
+            <Link className="btn " to={`/dashboardOrder/${props.singleServiceInformation.title}/${props.singleServiceInformation.description}`}>
             <div className="">
                 <div style={{height:'80px'}} className="text-center mb-4">
                     <img style={{height:'80px',width:'80px'}} src={props.singleServiceInformation.image} alt="ima"/>
