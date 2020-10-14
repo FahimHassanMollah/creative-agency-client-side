@@ -14,6 +14,7 @@ import PrivateRoute from './components/Home/PrivateRoute/PrivateRoute';
 import UserServiceList from './components/Dashboard/UserServiceList/UserServiceList';
 import UserReview from './components/Dashboard/UserReview/UserReview';
 import AdminServiceList from './components/Dashboard/AdminServiceList/AdminServiceList';
+import MakeAdmin from './components/Dashboard/MakeAdmin/MakeAdmin';
 export const UserContext = createContext();
 function App() {
   const [loggedInUser, setLoggedInUser] = useState({});
@@ -39,6 +40,9 @@ function App() {
         </PrivateRoute>
         <PrivateRoute exact path="/dashboardAdminServiceList">
          <AdminServiceList></AdminServiceList>
+        </PrivateRoute>
+        <PrivateRoute exact path="/dashboardMakeAdmin">
+         <MakeAdmin></MakeAdmin>
         </PrivateRoute>
 
 

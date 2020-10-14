@@ -1,10 +1,11 @@
-import React, { useContext, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import React, { useContext, useEffect, useState } from 'react';
+import { Col, Container, Row, Table } from 'react-bootstrap';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { UserContext } from '../../../App';
 import DashboardHeader from '../DashboardHeader/DashboardHeader';
 import Sidebar from '../Sidebar/Sidebar';
 import { useForm } from "react-hook-form";
+import AdminServiceListTableRow from '../AdminServiceListTableRow/AdminServiceListTableRow';
 const DashboardOrder = () => {
     const {serviceName,serviceDescription}=useParams();
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
@@ -12,6 +13,38 @@ const DashboardOrder = () => {
     const location = useLocation();
     const { from } = { from: { pathname: "/dashboardUserServiceList" } };
     const { register, handleSubmit, watch, errors } = useForm();
+
+
+   
+    const [admin, setAdmin] = useState(false);
+    const [allOrderList, setAllOrderList] = useState([]);
+    useEffect(() => {
+        const data = {
+            email: loggedInUser.email
+        }
+
+        fetch('http://localhost:8080/getAdmin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
+                setAdmin(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }, [loggedInUser.email])
+   
+    useEffect(() => {
+      fetch('http://localhost:8080/getAllOrderInformation')
+      .then(res=>res.json())
+      .then(result=>setAllOrderList(result))
+    }, [])
+
     const onSubmit = data => {
         data.userPhoto=loggedInUser.photo;
         data.status='pending';
@@ -31,6 +64,7 @@ const DashboardOrder = () => {
                 console.error('Error:', error);
             });
     };
+
     return (
         <div style={{ overflow: "hidden" }}>
             <DashboardHeader></DashboardHeader>
@@ -39,7 +73,8 @@ const DashboardOrder = () => {
                     <Sidebar></Sidebar>
                 </Col>
                 <Col md={9} style={{ backgroundColor: "#f4f7fc", height: "100vh" }}>
-                    <div style={{ paddingRight: "200px", paddingTop: "60px", paddingLeft: "20px" }}>
+                    {
+                        admin===false?<div style={{ paddingRight: "200px", paddingTop: "60px", paddingLeft: "20px" }}>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="mb-3">
                                 <input  ref={register({ required: true })} type="text" name="name" value={loggedInUser.name} className="form-control " placeholder="Your name / company's name" />
@@ -65,6 +100,31 @@ const DashboardOrder = () => {
                                  </button>
                         </form>
                     </div>
+                    :
+                    <div style={{ paddingRight: "20px", paddingTop: "60px", paddingLeft: "20px" }}>
+                    <Row className="">
+                    {
+                       <Table>
+                       <thead >
+                         <tr className="bg-tr">
+                           <th className="bg-tr">Name</th>
+                           <th className="bg-tr">Email Id</th>
+                           <th className="bg-tr">Service</th>
+                           <th className="bg-tr">Project Details</th>
+                           <th className="bg-tr">Status</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         {
+                             allOrderList.length>0 && allOrderList.map((orderInfo,index)=><AdminServiceListTableRow orderInfo={orderInfo} key={index} ></AdminServiceListTableRow>)
+                         }
+                        
+                       </tbody>
+                     </Table> 
+                     }
+                    </Row>
+                  </div>
+                    }
                 </Col>
             </Row>
         </div>
