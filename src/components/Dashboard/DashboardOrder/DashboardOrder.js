@@ -50,7 +50,7 @@ const DashboardOrder = () => {
     const onSubmit = data => {
         data.userPhoto=loggedInUser.photo;
         data.status='pending';
-        console.log(data);
+        // console.log(data);
         fetch('http://localhost:8080/saveOrderInformations', {
             method: 'POST',
             headers: {

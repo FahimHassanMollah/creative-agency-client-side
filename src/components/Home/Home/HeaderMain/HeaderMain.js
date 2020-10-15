@@ -13,7 +13,7 @@ const HeaderMain = () => {
                             <h1 className="font-weight-bold pb-0 mb-0" style={{color:"#111430",fontSize:"50px"}}>Let’s Grow Your <br />
                             Brand To The <br /> Next Level</h1>
                             <p style={{color:"#111430"}} className="my-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus commodo ipsum duis laoreet maecenas. Feugiat </p>
-                            <Link style={{backgroundColor:"#111430"}} className='btn btn-primary px-5 py-2' to={'/hireUs'}>Hire us</Link>
+                            <Link style={{backgroundColor:"#111430"}} className='btn btn-primary px-5 py-2'>Hire us</Link>
                         </div>
                     </Col>
                     <Col md={7}>

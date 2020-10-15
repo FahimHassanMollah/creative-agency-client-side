@@ -5,7 +5,7 @@ import './UserServiceCard.css'
 const UseerServiceListCard = (props) => {
     const [serviceImage, setServiceImage] = useState();
     let imageArray= props.serviceImageList.find((singleService)=>singleService.title===props.service.service);
-    
+    // console.log(imageArray);
     return (
     
             <Col md={4} className="mb-3 text-muted">
@@ -15,7 +15,9 @@ const UseerServiceListCard = (props) => {
                         <div>
                             <div className="d-flex d-flex justify-content-between">
                                 <div className="w-25">
-                                    <img className="img-fluid w-75 rounded-circle" src={imageArray.image} alt=""/>
+                                    
+                                    {/* <img className="img-fluid w-75 rounded-circle" src={imageArray.image} alt=""/> */}
+                                    <img className="img-fluid w-75 rounded-circle" src={`data:image/jpeg;base64,${imageArray.image.img}`} alt=""/>
                                   
                                 </div>
                                 <div className="text-left">

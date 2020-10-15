@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import service1 from '../../../../images/icons/service1.png';
 import service2 from '../../../../images/icons/service2.png';
@@ -22,14 +22,24 @@ const service =[
         image:service3
     },
 ]
+
 const Service = () => {
+    const [allService, setAllService] = useState([])
+    useEffect(() => {
+       fetch('http://localhost:8080/getAllService')
+       .then(res=>res.json())
+       .then(result=>{
+         
+        setAllService(result)
+       });
+    }, [])
     return (
         <div style={{marginTop:"150px"}}>
             <h2 style={{color:"#2d2d2d"}} className="text-center font-weight-bold mb-5">Provide awesome <span style={{color:'#7ab259'}}>services</span> </h2>
            <Container className="pt-4">
                <Row>
                {
-                service.map((singleServiceInformation,index)=><ServiceCard singleServiceInformation={singleServiceInformation} key={index}></ServiceCard>)
+               allService.length>0 && allService.map((singleServiceInformation,index)=><ServiceCard singleServiceInformation={singleServiceInformation} key={index}></ServiceCard>)
             }
                </Row>
            </Container>

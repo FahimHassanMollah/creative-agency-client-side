@@ -27,9 +27,24 @@ const clientsFeedbackArray =[
 const ClientsFeedBack = () => {
     const [reviews, setReviews] = useState([])
     useEffect(() => {
-       fetch('http://localhost:8080/getAllReview')
-       .then(res=>res.json())
-       .then(result=>setReviews(result))
+    //    fetch('http://localhost:8080/getAllReview')
+    //    .then(res=>res.json())
+    //    .then(result=>setReviews(result))
+   const data={email:'sadhf'};
+    fetch('http://localhost:8080/getAllReview', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+        .then(response => response.json())
+        .then(data => {
+            setReviews(data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
     }, [])
     return (
         <div style={{marginTop:'70px',marginBottom:'100px'}}>
@@ -37,7 +52,7 @@ const ClientsFeedBack = () => {
                 <h2 style={{color:"#171b4e",marginBottom:"80px"}} className="text-center">Clients <span style={{color:'#7ab259'}}>Feedback</span></h2>
                 <Row>
                    {
-                       reviews.map((clientInfo,index)=><ClientsFeedBackCard clientInfo={clientInfo} key={index}></ClientsFeedBackCard>)
+                      reviews.length>0 && reviews.map((clientInfo,index)=><ClientsFeedBackCard clientInfo={clientInfo} key={index}></ClientsFeedBackCard>)
                    }
                 </Row>
             </Container>
