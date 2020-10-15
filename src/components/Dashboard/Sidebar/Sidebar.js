@@ -39,7 +39,7 @@ const Sidebar = () => {
                 }
                 {
                     admin ? <Link className="mb-3" to="/dashboardAdminServiceList" style={{ textDecoration: 'none', color: "black", fontSize: "16px" }}>
-                        <FontAwesomeIcon icon={faListAlt} /> <span style={{ color: 'black' }} className="ml-2">Admin Service List</span>
+                        <FontAwesomeIcon icon={faListAlt} /> <span style={{ color: 'black' }} className="ml-2">Service List</span>
                     </Link>
                         :
                         <Link className="mb-3" to="/dashboardUserServiceList" style={{ textDecoration: 'none', color: "black", fontSize: "16px" }}>

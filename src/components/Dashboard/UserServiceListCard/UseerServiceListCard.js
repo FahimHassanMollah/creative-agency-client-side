@@ -19,7 +19,7 @@ const UseerServiceListCard = (props) => {
                                   
                                 </div>
                                 <div className="text-left">
-                                    <h6 className={props.service.status==='pending'?'pending px-3 py-2 mt-1':'done px-3 py-2 mt-1'} >{props.service.status}</h6>
+                                    <h6 className={(props.service.status==='pending'&&'pending px-3 py-2 mt-1')||(props.service.status==='done'&&'done px-3 py-2 mt-1')||(props.service.status==='ongoing'&&'ongoing px-3 py-2 mt-1')} >{props.service.status}</h6>
                                 </div>
                             </div>
                             <div className="pt-2">

@@ -9,6 +9,7 @@ import AdminServiceListTableRow from '../AdminServiceListTableRow/AdminServiceLi
 const DashboardOrder = () => {
     const {serviceName,serviceDescription}=useParams();
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const [pageUpdater, setPageUpdater] = useState(1);
     const history = useHistory();
     const location = useLocation();
     const { from } = { from: { pathname: "/dashboardUserServiceList" } };
@@ -17,6 +18,7 @@ const DashboardOrder = () => {
 
    
     const [admin, setAdmin] = useState(false);
+    const [statusChanger, setStatusChanger] = useState()
     const [allOrderList, setAllOrderList] = useState([]);
     useEffect(() => {
         const data = {
@@ -43,7 +45,7 @@ const DashboardOrder = () => {
       fetch('http://localhost:8080/getAllOrderInformation')
       .then(res=>res.json())
       .then(result=>setAllOrderList(result))
-    }, [])
+    }, [pageUpdater])
 
     const onSubmit = data => {
         data.userPhoto=loggedInUser.photo;
@@ -64,6 +66,36 @@ const DashboardOrder = () => {
                 console.error('Error:', error);
             });
     };
+    const statusChange = (e,ids) => {
+       
+        console.log(e.target.value,ids);
+        setStatusChanger(e.target.value);
+        let data = {
+            id:ids, status:e.target.value
+        }
+        fetch(`http://localhost:8080/updateOrderStatus`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+               if(data){
+                setPageUpdater(pageUpdater+1);
+               
+               }
+            })
+            .catch(err=>console.log(err,'fasdfjdfjs'))
+        // fetch(`http://localhost:8080/updateOrderStatus/${id}/${e.target.value}`)
+        // .then(res => res.json())
+        // .then(res => {
+        //     console.log(res)
+        //     // let inputs = document.createElement('div');
+           
+        // })
+    }
 
     return (
         <div style={{ overflow: "hidden" }}>
@@ -104,23 +136,25 @@ const DashboardOrder = () => {
                     <div style={{ paddingRight: "20px", paddingTop: "60px", paddingLeft: "20px" }}>
                     <Row className="">
                     {
-                       <Table>
-                       <thead >
-                         <tr className="bg-tr">
-                           <th className="bg-tr">Name</th>
-                           <th className="bg-tr">Email Id</th>
-                           <th className="bg-tr">Service</th>
-                           <th className="bg-tr">Project Details</th>
-                           <th className="bg-tr">Status</th>
-                         </tr>
-                       </thead>
-                       <tbody>
-                         {
-                             allOrderList.length>0 && allOrderList.map((orderInfo,index)=><AdminServiceListTableRow orderInfo={orderInfo} key={index} ></AdminServiceListTableRow>)
-                         }
-                        
-                       </tbody>
-                     </Table> 
+                      <div className="table-responsive-lg">
+                      <Table>
+                    <thead >
+                      <tr className="bg-tr">
+                        <th className="bg-tr">Name</th>
+                        <th className="bg-tr">Email Id</th>
+                        <th className="bg-tr">Service</th>
+                        <th className="bg-tr">Project Details</th>
+                        <th className="bg-tr">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
+                          allOrderList.length>0 && allOrderList.map((orderInfo,index)=><AdminServiceListTableRow statusChanger={statusChanger} statusChange={statusChange} orderInfo={orderInfo} key={index} ></AdminServiceListTableRow>)
+                      }
+                     
+                    </tbody>
+                  </Table> 
+                   </div>
                      }
                     </Row>
                   </div>
