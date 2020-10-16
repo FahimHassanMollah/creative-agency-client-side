@@ -16,7 +16,7 @@ const UserReview = () => {
       
         data.userPhoto=loggedInUser.photo;
         
-        fetch('http://localhost:8080/addReview', {
+        fetch('https://cryptic-headland-71782.herokuapp.com/addReview', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

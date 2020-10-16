@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
+import { BeatLoader } from 'react-spinners';
 import { UserContext } from '../../../App';
 import DashboardHeader from '../DashboardHeader/DashboardHeader';
 import Sidebar from '../Sidebar/Sidebar';
@@ -10,17 +11,18 @@ const UserServiceList = () => {
     const [serviceList, setServiceList] = useState([]);
     const [serviceImageList, setServiceImageList] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:8080/getUserServiceListByEmail/'+loggedInUser.email)
-        .then(res=>res.json())
-        .then(result=>setServiceList(result));
-        
+        fetch('https://cryptic-headland-71782.herokuapp.com/getUserServiceListByEmail/' + loggedInUser.email)
+            .then(res => res.json())
+            .then(result => setServiceList(result));
+
     }, [loggedInUser.email])
     useEffect(() => {
-        fetch('http://localhost:8080/getServiceImage')
-        .then(res=>res.json())
-        .then(result=>{
-           
-            setServiceImageList(result)});
+        fetch('https://cryptic-headland-71782.herokuapp.com/getServiceImage')
+            .then(res => res.json())
+            .then(result => {
+
+                setServiceImageList(result)
+            });
     }, [loggedInUser.email])
     return (
         <div style={{ overflow: "hidden" }}>
@@ -31,11 +33,24 @@ const UserServiceList = () => {
                 </Col>
                 <Col md={9} style={{ backgroundColor: "#f4f7fc", height: "400vh" }}>
                     <div style={{ paddingRight: "20px", paddingTop: "60px", paddingLeft: "20px" }}>
-                      <Row>
-                      {
-                    (serviceImageList.length>0 && serviceList.length>0)?serviceList.map((service,index)=><UseerServiceListCard serviceImageList={serviceImageList} service={service} key={index} ></UseerServiceListCard>):""
-                       }
-                      </Row>
+                        <Row>
+                            {
+                                (serviceImageList.length > 0 && serviceList.length > 0) ? serviceList.map((service, index) => <UseerServiceListCard serviceImageList={serviceImageList} service={service} key={index} ></UseerServiceListCard>)
+                                    : <Container>
+                                        <Row className="justify-content-md-center">
+                                            <Col md={3} >
+                                               
+                                                <BeatLoader
+                                                    className="text-center" size={15} margin={1} ></BeatLoader>
+                                            </Col>
+                                        </Row>
+                                    </Container>
+
+
+
+
+                            }
+                        </Row>
                     </div>
                 </Col>
             </Row>

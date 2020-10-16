@@ -6,7 +6,7 @@ import frame from '../../../../images/logos/Frame.png'
 const HeaderMain = () => {
     return (
         <div>
-            <Container className="mt-3">
+            <Container className="mt-3" style={{paddingBottom:"150px"}}>
                 <Row>
                     <Col md={5}>
                         <div className="mt-5 pt-4">

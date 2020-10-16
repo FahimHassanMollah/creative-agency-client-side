@@ -1,11 +1,11 @@
 import React from 'react';
 import Carousel from "react-elastic-carousel";
-import './styles.css'
+
 import sliderOne from '../../../../images/carousel-1.png';
 import sliderTwo from '../../../../images/carousel-2.png';
 import sliderThree from '../../../../images/carousel-5.png';
 import sliderFour from '../../../../images/carousel-4.png';
-
+import './styless.css';
 const breakPoints = [
     { width: 1, itemsToShow: 1 },
     { width: 550, itemsToShow: 2 },

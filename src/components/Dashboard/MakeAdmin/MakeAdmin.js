@@ -13,7 +13,7 @@ const MakeAdmin = () => {
     const { register, handleSubmit, watch, errors } = useForm();
     const onSubmit = (data) => {
         // console.log(data);
-        fetch('http://localhost:8080/addAdmin', {
+        fetch('https://cryptic-headland-71782.herokuapp.com/addAdmin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

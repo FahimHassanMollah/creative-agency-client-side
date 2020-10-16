@@ -15,7 +15,7 @@ const Header = () => {
                 <NavBar></NavBar>
                 <HeaderMain></HeaderMain>
             </div>
-            <Container>
+            <Container style={{paddingTop:"90px"}}>
                 <Row className="d-flex justify-content-center">
                     <Col md={10} className="">
                        <div className="d-flex justify-content-between text-center">

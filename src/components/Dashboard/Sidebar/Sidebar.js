@@ -8,13 +8,13 @@ import { faServicestack } from '@fortawesome/free-brands-svg-icons';
 import { UserContext } from '../../../App';
 const Sidebar = () => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-    const [admin, setAdmin] = useState(false);
+    const [admin, setAdmin] = useState();
     useEffect(() => {
         const data = {
             email: loggedInUser.email
         }
 
-        fetch('http://localhost:8080/getAdmin', {
+        fetch('https://cryptic-headland-71782.herokuapp.com/getAdmin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

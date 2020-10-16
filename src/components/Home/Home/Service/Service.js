@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
+import { BeatLoader } from 'react-spinners';
 import service1 from '../../../../images/icons/service1.png';
 import service2 from '../../../../images/icons/service2.png';
 import service3 from '../../../../images/icons/service3.png';
@@ -26,7 +27,7 @@ const service =[
 const Service = () => {
     const [allService, setAllService] = useState([])
     useEffect(() => {
-       fetch('http://localhost:8080/getAllService')
+       fetch('https://cryptic-headland-71782.herokuapp.com/getAllService')
        .then(res=>res.json())
        .then(result=>{
          
@@ -39,7 +40,17 @@ const Service = () => {
            <Container className="pt-4">
                <Row>
                {
-               allService.length>0 && allService.map((singleServiceInformation,index)=><ServiceCard singleServiceInformation={singleServiceInformation} key={index}></ServiceCard>)
+               allService.length>0 ? allService.map((singleServiceInformation,index)=><ServiceCard singleServiceInformation={singleServiceInformation} key={index}></ServiceCard>)
+               :
+               <Container className="m-5">
+               <Row className="justify-content-md-center">
+                   <Col md={3} >
+
+                       <BeatLoader
+                           className="text-center" size={20} margin={2} ></BeatLoader>
+                   </Col>
+               </Row>
+           </Container>
             }
                </Row>
            </Container>
