@@ -12,6 +12,4 @@
  * Firebase Authentication
  * React bootstrap
  * Node.js 
- * Express js
- * MongoDB
  * Heroku  
